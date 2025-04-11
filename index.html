@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trakshay Balagotra | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --text: #e2e8f0;
+      --accent: #38bdf8;
+      --card: #1e293b;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.875rem;
+      color: #94a3b8;
+    }
+
+    .download-btn {
+      background: var(--accent);
+      color: #000;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://media.licdn.com/dms/image/v2/D5635AQFSXRSLGQNS4w/profile-framedphoto-shrink_200_200/B56ZUCtNm5HoAY-/0/1739507161884?e=1744974000&v=beta&t=1rpFy6T99pShE8iUOeHUPWsw5CVCuOrESvHeIHYVqN4" alt="Trakshay Balagotra" class="profile-pic">
+    <h1>Trakshay Balagotra</h1>
+    <h2>Associate Consultant – Smart Analytics & Reporting</h2>
+    <p>Pune, MH, India | <a href="mailto:Trakshay.Balagotra@outlook.com">Email</a> | <a href="https://linkedin.com/in/trakshay-balagotra-ab9431187" target="_blank">LinkedIn</a> | +91 8308103278</p>
+  </header>
+
+  <section id="portfolio-content">
+    <h2>About Me</h2>
+    <div class="card">
+      <p>An Associate Consultant with a strong foundation in Data Analytics using Power BI, Jaspersoft Reporting, and IoT Analytics. I bring over 3 years of experience in report development, SQL optimization, and data visualization. Passionate about continuous learning and creating data-driven ecosystems through smart reporting and BI tools.</p>
+    </div>
+
+    <h2>Projects</h2>
+    <div class="card">
+      <h3>Power BI Dashboard Suite</h3>
+      <p>Developed KPI scorecards, implemented RLS, used DAX Studio and Tabular Editor for performance tuning.</p>
+      <p><strong>Tools:</strong> Power BI, DAX, SQL Server</p>
+    </div>
+    <div class="card">
+      <h3>Jaspersoft Report Migration (SAP BO → Jaspersoft)</h3>
+      <p>Successfully migrated 200+ reports ensuring like-to-like functionality, collaborating with QA for validations.</p>
+      <p><strong>Tools:</strong> Jaspersoft Studio, PL/SQL, MS SQL Server</p>
+    </div>
+    <div class="card">
+      <h3>IoT Data Analytics System</h3>
+      <p>Designed and implemented a real-time monitoring system for water purification and industrial forming processes.</p>
+      <p><strong>Tools:</strong> IoT Sensors, Data Logging, Visualization Frameworks</p>
+    </div>
+
+    <h2>Awards & Certifications</h2>
+    <div class="card">
+      <ul>
+        <li>🏆 WOW Award (H1-2024) for operational excellence</li>
+        <li>🌟 Rising Star Award (H1-2023)</li>
+        <li>📜 Patent on Multistage Water Purification</li>
+        <li>🧠 Power BI PL-300 – Microsoft Certified</li>
+        <li>🎓 Global Telecom L2 Certified</li>
+        <li>📘 Jasper Certification (Udemy)</li>
+      </ul>
+    </div>
+
+    <h2>Resume</h2>
+    <div class="card">
+      <p>You can download my resume here:</p>
+      <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
+    </div>
+  </section>
+
+  <div class="footer">
+    &copy; 2025 Trakshay Balagotra. Built with GitHub Pages.
+  </div>
+
+  <script>
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'pt', 'a4');
+
+      const content = document.getElementById('portfolio-content');
+
+      await html2canvas(content, { scale: 2 }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('Trakshay_Balagotra_Resume.pdf');
+      });
+    }
+  </script>
+</body>
+</html>
